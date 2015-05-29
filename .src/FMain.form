@@ -1,0 +1,213 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,142,85)
+  Text = ("Ubuntu-wifi-scanner")
+  Resizable = False
+  Maximized = True
+  AutoResize = True
+  Margin = True
+  { PictureBox2 PictureBox
+    MoveScaled(115,1,28,18)
+    Picture = Picture["spy.png"]
+    Stretch = True
+  }
+  { PictureBox3 PictureBox
+    MoveScaled(3,1,16,15)
+    Picture = Picture["tuxmatrix.png"]
+    Stretch = True
+  }
+  { Label1 Label
+    MoveScaled(18,2,102,12)
+    Font = Font["+13"]
+    Text = ("Ubuntu-network-scanner")
+    Alignment = Align.Center
+  }
+  { TabStrip1 TabStrip
+    MoveScaled(3,17,137,65)
+    AutoResize = True
+    Margin = True
+    Count = 4
+    Index = 0
+    Text = ("MONITOR")
+    { Label2 Label
+      MoveScaled(30,3,71,4)
+      Font = Font["+4"]
+      Text = ("Dispositivos actualmente conectados:")
+    }
+    { escanearahora Button
+      MoveScaled(3,4,22,7)
+      Background = &HBFFFCF&
+      Text = ("ESCANEAR AHORA")
+    }
+    { Label5 Label
+      MoveScaled(91,4,40,4)
+      Text = ("Último escaneo: ")
+    }
+    { salidaArea TextArea
+      MoveScaled(30,8,105,46)
+      Font = Font["+4"]
+      Background = &H000000&
+      Foreground = &H1FFFFF&
+      Text = ("AYUDA DE INICIACIÓN:\n\n1- Configure los parametros de red en la pestaña configuraciones.\n2- Pulse el botón \"Escanear ahora\" para actualizar la lista de dispositivos.\n3- Añada los dispositivos que reconozca a la lista blanca (No olvide guardar)\n4- Active la opción Avisar de intrusos\n5- Prepare un café y pongase una gafas de detective...\n\nnota: si desea volver a obtener esta ayuda pulse el botón de abajo a la\nderecha en esta msima pestaña.")
+    }
+    { ToggleButton1 ToggleButton
+      MoveScaled(3,13,22,8)
+      Text = ("ESCANER EN BUCLE \nMODO CENTINELA")
+    }
+    { RadioButton1 RadioButton
+      MoveScaled(3,22,22,4)
+      Text = ("¡Avísame de intrusos!")
+    }
+    { RadioButton3 RadioButton
+      MoveScaled(3,25,24,4)
+      Text = ("No avisar.")
+      Value = True
+    }
+    { PictureBox1 PictureBox
+      MoveScaled(4,32,23,27)
+      Picture = Picture["me-estan-robando-el-wifi.png"]
+      Stretch = True
+    }
+    { Label4 Label
+      MoveScaled(30,54,64,4)
+      Text = ("1ra colum= IP, 2da colum=MAC, 3ra colum Nombre")
+    }
+    { ToggleButton2 ToggleButton
+      MoveScaled(118,55,16,4)
+      Text = ("Ayuda")
+    }
+    Index = 1
+    Text = ("LISTA BLANCA")
+    { TextArea1 TextArea
+      MoveScaled(77,9,57,50)
+      Font = Font["+5"]
+      Alignment = Align.Center
+    }
+    { Label6 Label
+      MoveScaled(3,7,72,32)
+      Font = Font["+1"]
+      Text = ("Introduce la dirección MAC que desea incluir en la lsita blanca,\npara introducir una nueva inserte un salto de linea o use\nla caja de texto y el botón situados debajo, ejemplo:\n\n00:00:00:00:00:00\n11:11:11:11:11:11\ndd:dd:dd:dd:dd:dd\n\nPara saber que MAC tiene los dispositivos de confianza lea \nel manual o la documentación del dispositivo o en la pestaña \nMAIN haga un sondeo y copie las direcciones MAC\nque reconozca.")
+      Alignment = Align.TopNormal
+    }
+    { Label7 Label
+      MoveScaled(3,3,24,4)
+      Font = Font["Bold,+2"]
+      Text = ("Uso:")
+    }
+    { Label8 Label
+      MoveScaled(94,5,24,4)
+      Font = Font["+3"]
+      Text = ("LISTA BLANCA")
+      Alignment = Align.Center
+    }
+    { Button1 Button
+      MoveScaled(40,51,34,8)
+      Font = Font["+3"]
+      Text = ("AÑADIR MAC SEGURA")
+    }
+    { MaskBox1 MaskBox
+      MoveScaled(3,40,70,8)
+      Font = Font["+7"]
+      Text = ("00:00:00:00:00:00")
+      Alignment = Align.Center
+      Mask = "??:??:??:??:??:??"
+      ShowDefault = True
+    }
+    { Button2 Button
+      MoveScaled(3,51,34,8)
+      Font = Font["+2"]
+      Foreground = &H009F00&
+      Text = ("GUARDAR(IMPORTANTE)")
+    }
+    Index = 2
+    Text = ("CONFIGURACIONES")
+    { slidertiempo Slider
+      MoveScaled(3,8,114,3)
+      NoTabFocus = True
+      Drop = True
+      Expand = True
+      Ignore = True
+      MinValue = 3
+      MaxValue = 99
+      Step = 5
+      PageStep = 1
+      Mark = True
+      Value = 5
+    }
+    { Label3 Label
+      MoveScaled(3,2,86,4)
+      Text = ("Tiempo para el escanner en bucle modo centinela (segundos):")
+    }
+    { LCDLabel1 LCDLabel
+      MoveScaled(123,2,11,11)
+      Font = Font["Bold,+14"]
+      Foreground = &H0000BF&
+      ToolTip = ("tiempo de espera.")
+      Text = ("5")
+    }
+    { Label11 Label
+      MoveScaled(4,18,40,4)
+      Font = Font["Bold,+2"]
+      Text = ("CONFIGURACIONES DE LA RED:")
+    }
+    { Separator1 Separator
+      MoveScaled(3,15,129,4)
+    }
+    { Label12 Label
+      MoveScaled(4,24,24,4)
+      Text = ("Dirección de red:")
+    }
+    { Label13 Label
+      MoveScaled(4,30,24,4)
+      Text = ("Mácara en BITS:")
+    }
+    { Label14 Label
+      MoveScaled(4,36,24,4)
+      Text = ("Intefaz de red:")
+    }
+    { TextBox1 TextBox
+      MoveScaled(21,24,47,4)
+      Text = ("192.168.5.0")
+    }
+    { TextBox2 TextBox
+      MoveScaled(21,30,47,4)
+      Text = ("24")
+    }
+    { TextBox3 TextBox
+      MoveScaled(21,36,47,4)
+      Text = ("eth0")
+    }
+    { Label15 Label
+      MoveScaled(70,24,53,4)
+      Text = ("Ejemplo: 192.168.1.0 ... para red con mascara 255.255.255.0")
+    }
+    { Label16 Label
+      MoveScaled(70,30,41,4)
+      Text = ("Ejemplo: 24 .....para una mascara 255.255.255.0")
+    }
+    { Label17 Label
+      MoveScaled(70,36,57,4)
+      Text = ("Ejemplos: eth0, wlan0, wlan1 ....(más info usar comando ifconfig)")
+    }
+    { Button3 Button
+      MoveScaled(89,51,44,7)
+      Text = ("GUARDAR ESTA CONFIGURACIÓN\nPARA LA PROXIMA VEZ")
+    }
+    Index = 3
+    Text = ("Acerca de...")
+    { Label9 Label
+      MoveScaled(1,6,134,11)
+      Font = Font["+7"]
+      Text = ("Ubuntu-network-scanner - Release Candidate 0.9.1 (Estable)")
+      Alignment = Align.Center
+    }
+    { Label10 Label
+      MoveScaled(1,17,134,43)
+      Font = Font["+4"]
+      Text = ("SANTIAGO HOYOS ZEA\n\nAplicación para Centro Gregorio Fernández\nValladolid, España\n28/05/2015\n\n\nLicencia GPLv2\n\nFallos a: santiago.hoyos93@gmail.com")
+      Alignment = Align.Center
+    }
+    Index = 0
+  }
+}

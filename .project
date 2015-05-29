@@ -1,0 +1,25 @@
+# Gambas Project File 3.0
+# Compiled with Gambas 3.7.1
+Title=Ubuntu-network-scanner
+Startup=FMain
+Icon=me-estan-robando-el-wifi.png
+Version=0.9.1
+Component=gb.image
+Component=gb.gtk
+Component=gb.form
+Description="Busca y detecta los intrusos en tu red."
+Authors="Santiago Hoyos Zea"
+TabSize=2
+Translate=1
+Language=es_ES
+Maintainer=Monos-en-la-costa
+Vendor=Santiihoyos
+Address=santiago.hoyos93@gmail.com
+Url=gregoriofer.com
+License=General Public License
+PackageName=intruso-scanner-0.9.1
+Packager=1
+Systems=ubuntu
+Menus=ubuntu:"Applications/Network/Monitoring"
+Categories=ubuntu:"Network"
+Groups=ubuntu:"admin"

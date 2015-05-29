@@ -1,0 +1,222 @@
+' Gambas class file
+
+Public lineasSalida As New Collection
+Public lineasListaBlanca As New Collection
+Public ipred As String
+Public mascaraRed As String
+Public interfaz As String
+
+
+Public Sub _new()
+
+
+End
+
+Public Function ExisteCarpeta(ruta As String) As Boolean
+  Return Exist(ruta)
+Catch
+    Return False
+End
+
+Public Sub Form_Open()
+Dim fichero As File
+
+      If ExisteCarpeta("/root/.lista-blanca.txt") Then
+        
+          TextArea1.Text = File.Load("/root/.lista-blanca.txt")
+      Else
+        File.save("/root/.lista-blanca.txt", "")
+        Endif
+        
+      If ExisteCarpeta("/root/.Cache-monos-settings.txt") Then
+        
+        fichero = Open "/root/.Cache-monos-settings.txt" For Read         
+          Line Input #fichero, TextBox1.Text
+          Line Input #fichero, TextBox2.Text
+          Line Input #fichero, TextBox3.Text
+          
+      Else
+        File.save("/root/.Cache-monos-settings.txt", "")
+        Endif
+        
+        
+      
+End
+Public Sub creaParametros()
+
+Dim contador As Integer
+Dim fichero As File
+Dim linea As String
+
+lineasListaBlanca.Clear
+contador = 0
+
+fichero = Open "/root/.lista-blanca.txt" For Read
+ 
+While Not Eof(fichero)
+  
+  Line Input #fichero, linea
+  lineasListaBlanca.Add(linea, contador)
+  contador = contador + 1
+Wend
+
+End
+
+Public Sub escanearahora_Click()
+
+  Dim salida As String
+  Dim salida2 As String
+  Dim comando As String
+  Dim cabeza As String
+  
+  
+  ipred = TextBox1.Text
+  cabeza = Mid$(ipred, 1, 3)
+  mascaraRed = TextBox2.Text
+  interfaz = TextBox3.Text
+  
+  comando = "sudo arp-scan --interface=" & interfaz & "  " & ipred & "/" & mascaraRed & "  |grep -we \"" & cabeza & "\""
+  
+  Shell (comando) To salida
+  salidaArea.Text = salida
+  
+  Shell ("echo \"Último escaneo: \"`date`") To salida2
+  
+  Label5.Text = salida2
+  
+  If RadioButton3.Value = False Then
+    
+    If RadioButton1.Value = True Then
+  
+      salidaALineas()
+      creaParametros()
+     buscandoMonos()
+     
+Endif
+    Endif
+  
+  
+End
+
+Public Sub slidertiempo_Change()
+
+  ToggleButton1.Value = False
+  LCDLabel1.Text = slidertiempo.Value
+
+End
+
+Public Sub ToggleButton1_Click() ' evento sobre boton de bucle
+
+While (ToggleButton1.Value = True)
+  
+  escanearahora_Click()
+  Wait slidertiempo.Value
+  
+Wend
+
+End
+
+Public Sub Button1_Click()
+
+  TextArea1.Text = TextArea1.Text & MaskBox1.Text & Chr$(10)
+
+End
+
+Public Sub Button2_Click()
+
+
+File.Save("/root/.lista-blanca.txt", TextArea1.Text)
+  
+  Message.Info("Guardado!")
+
+End
+
+' Public Sub Alertar()
+' 
+'   Shell ("notify-send -u critical -i \"/home/santiago/Imágenes/iconos/alerta.png\"  \"¡ALERTA!\"  \"Se ha detectado una conexión de un dispositivo a la red local que no esta en la lsita de confianza. \" ")
+' 
+' End
+
+Public Sub salidaALineas()
+Dim fichero As File
+Dim linea As String
+Dim Contador As Integer
+
+Contador = 0
+lineasSalida.Clear
+
+File.Save("/root/.Cache-monos.txt", salidaArea.Text)
+
+fichero = Open "/root/.Cache-monos.txt" For Read
+ 
+While Not Eof(fichero)
+  
+  Line Input #fichero, linea
+  lineasSalida.Add(linea, Contador)
+  Contador = Contador + 1
+Wend
+
+End
+
+Public Sub buscandoMonos()
+  
+Dim ElementoLB As String
+Dim ElementoS As String
+Dim pos As Integer
+Dim bandera As Integer
+Dim encontrado As Integer
+Dim macIntrusa As String
+
+' Print "longitod de lineas salida= " & lineasSalida.Length
+' Print "longitod de lineas lista= " & lineasListaBlanca.Length
+
+For Each ElementoS In lineasSalida
+    
+    encontrado = False
+    bandera = 0
+  
+    For Each ElementoLB In lineasListaBlanca
+      
+       pos = InStr(ElementoS, ElementoLB)
+'         Print ElementoLB & "  en  " & ElementoS
+      
+'       Print pos
+  
+       If pos > 0 Then
+          
+          encontrado = 1
+          
+        Endif
+    Next
+'     Print "Encontrado= " & encontrado
+  If encontrado <> 1 Then
+  
+  macIntrusa = ElementoS
+  bandera = 1
+  Break  
+Endif
+
+Next
+
+' Print "acaba el bucle!   bandera= " & bandera
+
+If bandera == 1 Then
+  
+  Message.Warning("INTRUSO! " & Chr$(10) & macIntrusa)
+' Alertar()
+  
+Endif
+  
+End
+
+Public Sub Button3_Click()
+
+  File.Save("/root/.Cache-monos-settings.txt", TextBox1.Text & Chr$(10) & TextBox2.Text & Chr$(10) & TextBox3.Text)
+
+End
+
+Public Sub ToggleButton2_Click()
+
+  salidaArea.Text = "AYUDA DE INICIACIÓN:" & Chr$(10) & Chr$(10) & "1 - Configure los parametros de red en la pestaña configuraciones." & Chr$(10) & "2 - Pulse el bot ón \" Escanear ahora \" para actualizar la lista de dispositivos." & Chr$(10) & "3 - Añada los dispositivos que reconozca a la lista blanca (No olvide guardar)" & Chr$(10) & "4 - Active la opción Avisar de intrusos" & Chr$(10) & "5 - Prepare un café y pongase unas gafas de detective..." & Chr$(10) & Chr$(10) & "nota: si desea volver a obtener esta ayuda pulse el botón de abajo a la" & Chr$(10) & "derecha en esta msima pestaña."
+
+End
