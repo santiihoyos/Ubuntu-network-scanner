@@ -1,4 +1,4 @@
-# Ubuntu-wifi-scanner
+# Ubuntu-wifi-scanner (Legacy -- discontinued)
 Busca, y analiza los dispositivos de tu red local en busca de intrusos.
 
 DOWNLOAD:
